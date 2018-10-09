@@ -14,8 +14,6 @@ m_true = 2
 b_true = .1
 f_true = 0.534
 pi_true = 3.14159
-c_true = 5
-d_true=3
 n = .05 * np.random.normal(loc=0.0)
 # Generate some synthetic data from the model.
 N = 50
@@ -33,7 +31,7 @@ plt.xlabel("x")
 plt.ylabel("y");
 
 def log_likelihood(theta, x, y, yerr):
-    a, b, lnf, c, d, q = theta
+    a, b, lnf, c, d, q = theta #6 Dimmensions 
     model = a+ b * x + c * x **2 * d* np.sin(q *x) 
     sigma2 = yerr**2 + model**2*np.exp(2*lnf)
     return -0.5*np.sum((y-model)**2/sigma2 + np.log(sigma2))
@@ -41,7 +39,7 @@ def log_likelihood(theta, x, y, yerr):
 from scipy.optimize import minimize
 np.random.seed(42)
 nll = lambda *args: -log_likelihood(*args)
-initial = np.array([m_true, b_true, np.log(f_true), pi_true]) + 0.1*np.random.randn(4)
+initial = np.array([m_true, b_true, np.log(f_true), pi_true]) + 0.1*np.random.randn(4) #4 Dimmensions, changing rand(4) to (6) just moves the problem to now adding the 4 dimmensional np.array to rand(6)
 soln = minimize(nll, initial, args=(x, y, yerr))
 a_ml, b_ml, log_f_ml, q_ml, d_ml, c_ml = soln.x
 
@@ -52,6 +50,7 @@ print("c = {0:.3f}".format(c_ml))
 print("d = {0:.3f}".format(d_ml))
 print("q = {0:.3f}".format(q_ml))
 print("f = {0:.3f}".format(np.exp(log_f_ml)))
+#Anything below this can be ignored until the main problem is resolved 
 """
 plt.errorbar(x, y, yerr=yerr, fmt=".k", capsize=0)
 plt.plot(x0, m_true*x0+b_true*np.sin(pi_true * x0)+n, "k", alpha=0.3, lw=3, label="truth")
