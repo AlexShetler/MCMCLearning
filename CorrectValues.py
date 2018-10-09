@@ -35,7 +35,10 @@ def log_likelihood(theta, x, y, yerr):
     model = m * x + b * np.sin(pi *x) 
     sigma2 = yerr**2 + model**2*np.exp(2*lnf)
     return -0.5*np.sum((y-model)**2/sigma2 + np.log(sigma2))
-
+# THIS is where dimmensional problems. In the task given, the parameters do not match any truths. Here down below is where you input the 
+#truths. Using theta above as the spot for the parameters to find, it returns that it can't work with a 4 array (truths given) and a 6 array 
+# (parameters I need to find) this is not demonstrated in this code below as this code is more focused on finding a consistently accurate
+# estimation of pi 
 from scipy.optimize import minimize
 np.random.seed(42)
 nll = lambda *args: -log_likelihood(*args)
@@ -58,6 +61,7 @@ plt.xlim(0, 10)
 plt.xlabel("x")
 plt.ylabel("y");
 """
+#Below is the priors that have a huge impact on pi's value when editing pi's prior 
 def log_prior(theta):
     lnf, a, b, pi = theta
     if -10.0 < a < 10.0 and -10.0 < b < 10.0 and -10.0 < lnf < 10.0 and 0.0<pi<5.0:
