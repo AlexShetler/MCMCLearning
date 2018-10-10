@@ -19,7 +19,7 @@ import matplotlib.pyplot as plt
 np.random.seed(123)
 
 
-
+#Defines what we are looking for
 def fn_predict(theta,x):
 
     a, b, c, d, q = theta #6 Dimmensions 
